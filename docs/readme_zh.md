@@ -6,8 +6,8 @@
 [![License][license-shield]]([license-url])
 
 <div align="right">
-  <strong href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/readme_zh.md">简体中文</strong> | 
-  <a href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/readme_zh-tw.md">繁体中文</a> | 
+  <strong href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/readme_zh.md">简体中文</strong> |
+  <a href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/readme_zh-tw.md">繁体中文</a> |
   <a href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/README.md">English</a>
 </div>
 
@@ -56,15 +56,15 @@
 
 ### 全自动安装（推荐） ⚡
 
-1. **下载安装程序：**  
-   [安装程序](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/releases/latest)  
+1. **下载安装程序：**
+   [安装程序](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/releases/latest)
    *(安装程序是开源的，你可以查看其源码)*
 2. **运行安装程序（`installer.exe`）：**
    - 双击 `installer.exe` 启动。
    - 如有提示，请授予管理员权限。
 3. **确认插件目录：**
    - 安装器会自动检测 PotPlayer 安装路径。
-   - 确认目标目录为：  
+   - 确认目标目录为：
      `...\PotPlayer\Extension\Subtitle\Translate`
    - 若你安装在自定义路径，请手动选择正确的 `Translate` 目录。
 4. **选择插件版本：**
@@ -90,17 +90,17 @@
 
 ### 手动安装 🔧
 
-1. **下载 ZIP 文件：**  
+1. **下载 ZIP 文件：**
    从本仓库下载最新的 ZIP 文件。
-2. **解压 ZIP 文件：**  
+2. **解压 ZIP 文件：**
    将内容解压到临时文件夹中。
-3. **复制文件：**  
+3. **复制文件：**
    将 `ChatGPTSubtitleTranslate.as` 和 `ChatGPTSubtitleTranslate.ico` 复制到以下目录：
-   
+
    ```
    C:\Program Files\DAUM\PotPlayer\Extension\Subtitle\Translate
    ```
-   
+
    如果你的 PotPlayer 安装在其他位置，请将 `C:\Program Files\DAUM\PotPlayer` 替换为相应路径。
 4. **在 PotPlayer 中配置：**
    1. 打开 PotPlayer **首选项**（按 **F5**）。
@@ -115,24 +115,24 @@
 
 ### 配置参考 ⚙️
 
-1. **模型名称：**  
-   你可以仅输入模型名称，这时会使用默认的 API 接口 URL。  
-   **示例：**  
+1. **模型名称：**
+   你可以仅输入模型名称，这时会使用默认的 API 接口 URL。
+   **示例：**
    ```
    gpt-4.1-nano
-   ```  
-   
-   或者，你也可以通过指定自定义 API 接口 URL，格式为：  
+   ```
+
+   或者，你也可以通过指定自定义 API 接口 URL，格式为：
    ```
    模型名称|API 地址
-   ```  
-   **示例：**  
+   ```
+   **示例：**
    ```
    gpt-4.1-nano|https://api.openai.com/v1/chat/completions
-   ```  
-   
-   > **备注：**  
-   > 在新版插件中（版本 1.5），如果需要支持第三方 API 接口且不使用 API Key，可以在第二个参数中填写 `nullkey`。例如：  
+   ```
+
+   > **备注：**
+   > 在新版插件中（版本 1.5），如果需要支持第三方 API 接口且不使用 API Key，可以在第二个参数中填写 `nullkey`。例如：
    > ```
    > gpt-4.1-nano|nullkey
    > ```
@@ -141,41 +141,49 @@
    > qwen2.5:7b|http://127.0.0.1:11434/v1/chat/completions|nullkey
    > ```
    >
-   > **可选参数（v1.7+）：**  
-   > 通过 `|` 追加：  
-   > - `delay_ms`（纯数字）：每次请求前等待的毫秒数  
-   > - `retryN`（N = 0–3）：重试模式  
-   >   - `retry0`：不重试  
-   >   - `retry1`：空响应时再尝试一次  
-   >   - `retry2`：持续重试直到有响应（无延迟）  
-   >   - `retry3`：持续重试且每次都等待延迟  
-   > - `cache=auto` / `cache=off`：上下文缓存模式（仅上下文版本适用；auto 不支持时自动回退到 chat）  
+   > **可选参数（v1.7+）：**
+   > 通过 `|` 追加：
+   > - `delay_ms`（纯数字）：每次请求前等待的毫秒数
+   > - `retryN`（N = 0–3）：重试模式
+   >   - `retry0`：不重试
+   >   - `retry1`：空响应时再尝试一次
+   >   - `retry2`：持续重试直到有响应（无延迟）
+   >   - `retry3`：持续重试且每次都等待延迟
+   > - `cache=auto` / `cache=off`：上下文缓存模式（仅上下文版本适用；auto 不支持时自动回退到 chat）
+   > - `smallmodel=0` / `smallmodel=1`：启用小模型模式（针对小模型优化的提示词）
+   > - `checkhallucination=0` / `checkhallucination=1`：启用幻觉检测（若翻译长度 > 原文5倍则重试）
    >
-   > 完整示例：  
+   > 完整示例：
    > ```
-   > gpt-4.1-nano|https://api.openai.com/v1/chat/completions|nullkey|500|retry1|cache=auto
+   > gpt-4.1-nano|https://api.openai.com/v1/chat/completions|nullkey|500|retry1|cache=auto|smallmodel=1|checkhallucination=1
    > ```
 
-2. **API Key：**  
-   输入你的 API Key。  
-   若接口无需 Key，可留空并通过安装器验证空 Key；验证通过后会写入 `nullkey`。  
+2. **API Key：**
+   输入你的 API Key。
+   若接口无需 Key，可留空并通过安装器验证空 Key；验证通过后会写入 `nullkey`。
    > 你可以使用 **[keytest.obanarchy.org](https://keytest.obanarchy.org/)** 测试 API Key 是否有效。
 
-3. **设置源语言和目标语言：**  
+3. **设置源语言和目标语言：**
    根据需要配置字幕的源语言和目标语言。
 
 ---
 
 #### 模型填写示例列表
 
-使用格式如下：  
+使用格式如下：
 ```
-模型名称|API 地址|nullkey（可选）|delay_ms（可选）|retryN（可选）|cache=auto/off（可选）
+模型名称|API 地址|nullkey（可选）|delay_ms（可选）|retryN（可选）|cache=auto/off（可选）|smallmodel=0/1（可选）|checkhallucination=0/1（可选）
 ```
 
 以下是已支持或可用的模型接口示例：
 
 ```
+OpenAI GPT-5: gpt-5|https://api.openai.com/v1/chat/completions
+OpenAI GPT-5 Mini: gpt-5-mini|https://api.openai.com/v1/chat/completions
+OpenAI GPT-5 Nano: gpt-5-nano|https://api.openai.com/v1/chat/completions
+OpenAI GPT-4.1: gpt-4.1|https://api.openai.com/v1/chat/completions
+OpenAI GPT-4.1 Mini: gpt-4.1-mini|https://api.openai.com/v1/chat/completions
+Gemini Flash: gemini-3-flash-preview|https://generativelanguage.googleapis.com/v1beta/openai/chat/completions
 Deepseek: deepseek-chat|https://api.deepseek.com/v1/chat/completions
 通义千问: qwen-plus|https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions
 硅基流动: siliconflow-chat|https://api.siliconflow.cn/v1/chat/completions
@@ -206,39 +214,39 @@ Yi 34B Chat: yi-34b-chat|https://api.lingyi.ai/v1/chat/completions
 
 ## 关于项目 💬
 
-**PotPlayer_ChatGPT_Translate** 是一个 PotPlayer 插件，它整合了 ChatGPT API，以实现实时、上下文感知的字幕翻译。与传统翻译工具不同，该插件能够考虑上下文、惯用语和文化差异，从而提供更准确的翻译。项目的核心部分使用 AngleScript 实现，并结合了 ChatGPT API 与 PotPlayer API 实现深度集成。  
+**PotPlayer_ChatGPT_Translate** 是一个 PotPlayer 插件，它整合了 ChatGPT API，以实现实时、上下文感知的字幕翻译。与传统翻译工具不同，该插件能够考虑上下文、惯用语和文化差异，从而提供更准确的翻译。项目的核心部分使用 AngleScript 实现，并结合了 ChatGPT API 与 PotPlayer API 实现深度集成。
 ### 该插件同样兼容任何使用与 ChatGPT 相同 API 调用方式的 AI 模型。
 
 ## 🔍 Google 翻译 vs ChatGPT 翻译
 
 使用 ChatGPT 进行字幕翻译的一大优势在于它能够理解上下文和文化参考。请看下面的对比：
 
-- **原始字幕：**  
+- **原始字幕：**
   > *"You're gonna old yeller my f**king universe."*
 
-- **Google 翻译结果：**  
-  > *"你要老了我他妈的宇宙吗?"*  
-  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/Google%20translate.png)  
+- **Google 翻译结果：**
+  > *"你要老了我他妈的宇宙吗?"*
+  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/Google%20translate.png)
   _(意义不明且不正确)_
 
-- **ChatGPT 翻译结果：**  
-  > *"你要像《老黄犬》一样对待我的宇宙?"*  
-  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/ChatGPT.png)  
+- **ChatGPT 翻译结果：**
+  > *"你要像《老黄犬》一样对待我的宇宙?"*
+  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/ChatGPT.png)
   _(准确捕捉了引用及其意图)_
 
 ##  🧐 ChatGPT 无上下文 vs ChatGPT 有上下文对比
 
-- **原始字幕：**  
+- **原始字幕：**
   > *"But being one in real life is even better."*
 
-- **ChatGPT 翻译结果（无上下文）：**  
-  > *"但是，在现实生活中成为一个人甚至更好。"*  
-  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/without%20context.png)  
+- **ChatGPT 翻译结果（无上下文）：**
+  > *"但是，在现实生活中成为一个人甚至更好。"*
+  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/without%20context.png)
   _(字面翻译，未能体现隐含意义)_
 
-- **ChatGPT 翻译结果（有上下文）：**  
-  > *"但在现实生活中成为一个反派更好。"*  
-  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/using%20context.png)  
+- **ChatGPT 翻译结果（有上下文）：**
+  > *"但在现实生活中成为一个反派更好。"*
+  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/using%20context.png)
   _(准确捕捉语境)_
 
 <p align="right">(<a href="#readme-top">返回顶部</a>)</p>
@@ -270,7 +278,7 @@ graph TD
 
     %% --- Context Management ---
     UpdateHist --> ContextMode{插件版本?}
-    
+
     subgraph ContextLogic [上下文处理]
         direction TB
         ContextMode -- "无上下文版" --> NoContextPrompt[无上下文]
@@ -284,10 +292,10 @@ graph TD
         direction TB
         BuildBlock --> SmallModel{启用小模型模式?}
         NoContextPrompt --> SmallModel
-        
+
         SmallModel -- 是 --> StrictPrompt[System: 身份 + 上下文 + 指令\nUser: 仅字幕原文]
         SmallModel -- 否 --> StdPrompt[System: 身份 + 上下文\nUser: 指令 + 字幕原文]
-        
+
         StrictPrompt --> EscapeJSON[JSON 字符串转义]
         StdPrompt --> EscapeJSON
         EscapeJSON --> BuildPayload[构建 JSON 请求体]
@@ -300,7 +308,7 @@ graph TD
         direction TB
         LoopCond{尝试次数 <= 最大值?}
         LoopCond -- 否 --> FailFinal([返回失败信息])
-        
+
         LoopCond -- 是 --> DelayCheck{是重试吗?}
         DelayCheck -- 是 --> Wait["休眠 (DelayMs)"]
         DelayCheck -- 否 --> CacheBranch
@@ -310,24 +318,24 @@ graph TD
         CacheBranch{启用缓存模式?}
         CacheBranch -- 是 --> ReqCache[请求 /responses 端点]
         CacheBranch -- 否 --> ReqChat
-        
+
         ReqCache --> RespCache{响应成功?}
         RespCache -- 是 --> ParseCache[提取 'output_text']
         RespCache -- 否 --> LogCacheFail[记录失败] --> ReqChat[请求 /chat/completions]
-        
+
         ParseCache --> HallucinationCheck
-        
+
         %% Standard Chat Branch
         ReqChat --> NetCheck{网络连接正常?}
         NetCheck -- 否 --> IncRetry[尝试次数++] --> LoopCond
         NetCheck -- 是 --> ParseJSON{JSON 有效?}
-        
+
         ParseJSON -- 否 --> IncRetry
         ParseJSON -- Error --> LogAPIError[记录 API 错误] --> IncRetry
         ParseJSON -- Success --> ExtractContent[提取内容]
-        
+
         ExtractContent --> HallucinationCheck{幻觉检测?}
-        
+
         HallucinationCheck -- "长度 > 原文5倍" --> LogHallu[警告: 检测到幻觉] --> IncRetry
         HallucinationCheck -- 正常 --> SuccessBreak[跳出循环]
     end
@@ -345,8 +353,8 @@ graph TD
 
 ## 构建工具 🛠
 
-- **AngleScript** – 用于开发插件的脚本语言  
-- **ChatGPT API** – 提供上下文感知的翻译功能  
+- **AngleScript** – 用于开发插件的脚本语言
+- **ChatGPT API** – 提供上下文感知的翻译功能
 - **PotPlayer API** – 实现与 PotPlayer 的无缝集成
 
 <p align="right">(<a href="#readme-top">返回顶部</a>)</p>
@@ -357,9 +365,9 @@ graph TD
 
 在 PotPlayer 播放带有字幕的视频时，该插件会自动调用 ChatGPT API 实现实时字幕翻译。通过对上下文、惯用语和文化差异的处理，插件提供了更为精准的翻译。
 
-例如：  
-- **输入：** *"You're gonna old yeller my f**king universe."*  
-  - **传统翻译工具** 可能会输出直译或生硬的翻译。  
+例如：
+- **输入：** *"You're gonna old yeller my f**king universe."*
+  - **传统翻译工具** 可能会输出直译或生硬的翻译。
   - **ChatGPT 翻译** 则能捕捉电影引用和上下文，提供更贴切的翻译结果。
 
 <p align="right">(<a href="#readme-top">返回顶部</a>)</p>
@@ -368,8 +376,8 @@ graph TD
 
 ## 开发计划 🗺
 
-- [x] 与 PotPlayer API 集成 ChatGPT API，实现实时字幕翻译。  
-- [ ] 支持更多 AI 模型（计划中，近期内不实现）。  
+- [x] 与 PotPlayer API 集成 ChatGPT API，实现实时字幕翻译。
+- [ ] 支持更多 AI 模型（计划中，近期内不实现）。
 - [ ] 优化上下文处理，进一步提高翻译准确性。
 
 <p align="right">(<a href="#readme-top">返回顶部</a>)</p>
@@ -378,7 +386,7 @@ graph TD
 
 ## 贡献指南 🤝
 
-欢迎所有贡献！在提交 Pull Request 时，请清楚描述你所做的修改内容。  
+欢迎所有贡献！在提交 Pull Request 时，请清楚描述你所做的修改内容。
 如果你有改进建议或 Bug 修复，请在修改前先通过 Issue 进行讨论。
 
 <p align="right">(<a href="#readme-top">返回顶部</a>)</p>
@@ -403,8 +411,8 @@ graph TD
 
 ## 致谢 🙏
 
-- 感谢 OpenAI 提供强大的 ChatGPT API。  
-- 感谢 PotPlayer 团队打造出色的媒体播放器。  
+- 感谢 OpenAI 提供强大的 ChatGPT API。
+- 感谢 PotPlayer 团队打造出色的媒体播放器。
 - 感谢所有对本项目提出建议或贡献代码的朋友（贡献者名单会在此更新）。
 
 <p align="right">(<a href="#readme-top">返回顶部</a>)</p>

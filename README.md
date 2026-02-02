@@ -14,8 +14,8 @@
 [![License][license-shield]]([license-url])
 
 <div align="right">
-  <a href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/readme_zh.md">简体中文</a> | 
-  <a href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/readme_zh-tw.md">繁体中文</a> | 
+  <a href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/readme_zh.md">简体中文</a> |
+  <a href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/readme_zh-tw.md">繁体中文</a> |
   <strong href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/README.md">English</strong>
 </div>
 
@@ -64,15 +64,15 @@
 
 ### Fully Automatic Installation (Recommended) ⚡
 
-1. **Download the Installer:**  
-   [Installer](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/releases/latest)  
+1. **Download the Installer:**
+   [Installer](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/releases/latest)
    *(The installer is open source, so you can review the source code)*
 2. **Run the Installer (`installer.exe`):**
    - Double-click `installer.exe` to start.
    - Approve the **administrator prompt** if Windows asks for permission.
 3. **Confirm the PotPlayer Plugin Folder:**
    - The wizard auto-detects your PotPlayer install path.
-   - Verify the target folder is:  
+   - Verify the target folder is:
      `...\PotPlayer\Extension\Subtitle\Translate`
    - If you installed PotPlayer to a custom location, browse to the correct `Translate` folder.
 4. **Choose the Plugin Variant:**
@@ -98,11 +98,11 @@
 
 ### Manual Installation 🔧
 
-1. **Download the ZIP File:**  
+1. **Download the ZIP File:**
    Download the latest ZIP file from this repository.
-2. **Extract the ZIP File:**  
+2. **Extract the ZIP File:**
    Extract the contents to a temporary folder.
-3. **Copy Files:**  
+3. **Copy Files:**
    Copy `ChatGPTSubtitleTranslate.as` and `ChatGPTSubtitleTranslate.ico` to the following directory:
    ```
    C:\Program Files\DAUM\PotPlayer\Extension\Subtitle\Translate
@@ -124,67 +124,81 @@
 
 ### Configuration Reference ⚙️
 
-1. **Model Name:**  
-   You can simply enter the model name, which will use the default API URL.  
-   **Example:**  
+1. **Model Name:**
+   You can simply enter the model name, which will use the default API URL.
+   **Example:**
    ```
    gpt-4.1-nano
-   ```  
-   
-   Alternatively, specify a custom API URL using the following format:  
+   ```
+
+   Alternatively, specify a custom API URL using the following format:
    ```
    ModelName|API Base URL
-   ```  
-   **Example:**  
+   ```
+   **Example:**
    ```
    gpt-4.1-nano|https://api.openai.com/v1/chat/completions
-   ```  
-   
-   > **Note:**  
-   > In version **v1.5** and later, if you're using a self-hosted or third-party API that does not require an API key, you can add `nullkey` at the end:  
+   ```
+
+   > **Note:**
+   > In version **v1.5** and later, if you're using a self-hosted or third-party API that does not require an API key, you can add `nullkey` at the end:
    > ```
    > gpt-4.1-nano|nullkey
    > ```
-   > or:  
+   > or:
    > ```
    > qwen2.5:7b|http://127.0.0.1:11434/v1/chat/completions|nullkey
    > ```
    >
-   > **Optional tuning parameters (v1.7+):**  
-   > Append extra tokens separated by `|`:  
-   > - `delay_ms` (digits only): add a delay before each request  
-   > - `retryN` (N = 0–3): retry mode  
-   >   - `retry0`: no retry  
-   >   - `retry1`: one extra attempt on empty response  
-   >   - `retry2`: keep retrying until a response (no delay)  
-   >   - `retry3`: keep retrying, with delay before every attempt  
-   > - `cache=auto` / `cache=off`: context cache mode (context version only; auto falls back to chat if unsupported)  
+   > **Optional tuning parameters (v1.7+):**
+   > Append extra tokens separated by `|`:
+   > - `delay_ms` (digits only): add a delay before each request
+   > - `retryN` (N = 0–3): retry mode
+   >   - `retry0`: no retry
+   >   - `retry1`: one extra attempt on empty response
+   >   - `retry2`: keep retrying until a response (no delay)
+   >   - `retry3`: keep retrying, with delay before every attempt
+   > - `cache=auto` / `cache=off`: context cache mode (context version only; auto falls back to chat if unsupported)
+   > - `smallmodel=0` / `smallmodel=1`: enable small model mode (optimized prompt for smaller models)
+   > - `checkhallucination=0` / `checkhallucination=1`: enable hallucination check (retries if translation length > 5x source)
    >
-   > Example with all options:  
+   > Example with all options:
    > ```
-   > gpt-4.1-nano|https://api.openai.com/v1/chat/completions|nullkey|500|retry1|cache=auto
+   > gpt-4.1-nano|https://api.openai.com/v1/chat/completions|nullkey|500|retry1|cache=auto|smallmodel=1|checkhallucination=1
    > ```
 
-2. **API Key:**  
-   Enter your API key if needed.  
-   If your endpoint does not require a key, verify with a blank field; the installer will inject `nullkey` only after a successful empty-key test.  
+2. **API Key:**
+   Enter your API key if needed.
+   If your endpoint does not require a key, verify with a blank field; the installer will inject `nullkey` only after a successful empty-key test.
    > You can test your API key using **[keytest.obanarchy.org](https://keytest.obanarchy.org/)** to ensure it is valid.
 
-3. **Set the Source and Target Languages:**  
+3. **Set the Source and Target Languages:**
    Configure the source and target languages as required.
 
 ---
 
 #### Available Models (Examples)
 
-Use the format:  
+Use the format:
 ```
-ModelName|API Base URL|nullkey (optional)|delay_ms (optional)|retryN (optional)|cache=auto/off (optional)
+ModelName|API Base URL|nullkey (optional)|delay_ms (optional)|retryN (optional)|cache=auto/off (optional)|smallmodel=0/1 (optional)|checkhallucination=0/1 (optional)
 ```
 
 Here is a list of supported models:
 
 ```
+OpenAI GPT-5: gpt-5|https://api.openai.com/v1/chat/completions
+OpenAI GPT-5 Mini: gpt-5-mini|https://api.openai.com/v1/chat/completions
+OpenAI GPT-5 Nano: gpt-5-nano|https://api.openai.com/v1/chat/completions
+OpenAI GPT-4.1: gpt-4.1|https://api.openai.com/v1/chat/completions
+OpenAI GPT-4.1 Mini: gpt-4.1-mini|https://api.openai.com/v1/chat/completions
+Gemini Flash: gemini-3-flash-preview|https://generativelanguage.googleapis.com/v1beta/openai/chat/completions
+OpenAI GPT-5: gpt-5|https://api.openai.com/v1/chat/completions
+OpenAI GPT-5 Mini: gpt-5-mini|https://api.openai.com/v1/chat/completions
+OpenAI GPT-5 Nano: gpt-5-nano|https://api.openai.com/v1/chat/completions
+OpenAI GPT-4.1: gpt-4.1|https://api.openai.com/v1/chat/completions
+OpenAI GPT-4.1 Mini: gpt-4.1-mini|https://api.openai.com/v1/chat/completions
+Gemini Flash: gemini-3-flash-preview|https://generativelanguage.googleapis.com/v1beta/openai/chat/completions
 Deepseek: deepseek-chat|https://api.deepseek.com/v1/chat/completions
 Tongyi Qianwen: qwen-plus|https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions
 SiliconFlow: siliconflow-chat|https://api.siliconflow.cn/v1/chat/completions
@@ -222,32 +236,32 @@ You can expand or replace these with any OpenAI-compatible model that supports t
 
 One key advantage of using ChatGPT for subtitle translation is its ability to understand context and cultural references. Compare the following results:
 
-- **Original subtitle:**  
+- **Original subtitle:**
   > *"You're gonna old yeller my f**king universe."*
 
-- **Google Translate Result:**  
-  > *"你要老了我他妈的宇宙吗?"*  
-  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/Google%20translate.png)  
+- **Google Translate Result:**
+  > *"你要老了我他妈的宇宙吗?"*
+  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/Google%20translate.png)
   _(Nonsensical and incorrect)_
 
-- **ChatGPT Translation Result:**  
-  > *"你要像《老黄犬》一样对待我的宇宙?"*  
-  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/ChatGPT.png)  
+- **ChatGPT Translation Result:**
+  > *"你要像《老黄犬》一样对待我的宇宙?"*
+  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/ChatGPT.png)
   _(Correctly captures the reference and intended meaning)_
 
 ## 🧐 ChatGPT Without Context vs. ChatGPT With Context Comparison
 
-- **Original Subtitle:**  
+- **Original Subtitle:**
   > *"But being one in real life is even better."*
 
-- **ChatGPT Translation (Without Context):**  
-  > *"但是，在现实生活中成为一个人甚至更好。"*  
-  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/without%20context.png)  
+- **ChatGPT Translation (Without Context):**
+  > *"但是，在现实生活中成为一个人甚至更好。"*
+  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/without%20context.png)
   _(Literal translation, failing to capture the implied meaning)_
 
-- **ChatGPT Translation (With Context):**  
-  > *"但在现实生活中成为一个反派更好。"*  
-  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/using%20context.png)  
+- **ChatGPT Translation (With Context):**
+  > *"但在现实生活中成为一个反派更好。"*
+  ![](https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/using%20context.png)
   _(Accurately capturing the intended context)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -279,7 +293,7 @@ graph TD
 
     %% --- Context Management ---
     UpdateHist --> ContextMode{Plugin Variant?}
-    
+
     subgraph ContextLogic [Context Processing]
         direction TB
         ContextMode -- "Without Context" --> NoContextPrompt[No Context]
@@ -293,10 +307,10 @@ graph TD
         direction TB
         BuildBlock --> SmallModel{Small Model Mode?}
         NoContextPrompt --> SmallModel
-        
+
         SmallModel -- Yes --> StrictPrompt[System: Identity + Context + Instruction\nUser: Subtitle Text Only]
         SmallModel -- No --> StdPrompt[System: Identity + Context\nUser: Instruction + Subtitle Text]
-        
+
         StrictPrompt --> EscapeJSON[JSON Escape Strings]
         StdPrompt --> EscapeJSON
         EscapeJSON --> BuildPayload[Build JSON Payload]
@@ -309,7 +323,7 @@ graph TD
         direction TB
         LoopCond{Attempts <= Max?}
         LoopCond -- No --> FailFinal([Return Failure Message])
-        
+
         LoopCond -- Yes --> DelayCheck{Is Retry?}
         DelayCheck -- Yes --> Wait[Sleep Configured Delay]
         DelayCheck -- No --> CacheBranch
@@ -319,24 +333,24 @@ graph TD
         CacheBranch{Cache Mode Enabled?}
         CacheBranch -- Yes --> ReqCache[POST /responses]
         CacheBranch -- No --> ReqChat
-        
+
         ReqCache --> RespCache{Response OK?}
         RespCache -- Yes --> ParseCache[Extract 'output_text']
         RespCache -- No --> LogCacheFail[Log Failure] --> ReqChat[POST /chat/completions]
-        
+
         ParseCache --> HallucinationCheck
-        
+
         %% Standard Chat Branch
         ReqChat --> NetCheck{Network OK?}
         NetCheck -- No --> IncRetry[Attempts++] --> LoopCond
         NetCheck -- Yes --> ParseJSON{Valid JSON?}
-        
+
         ParseJSON -- No --> IncRetry
         ParseJSON -- Error --> LogAPIError[Log API Error] --> IncRetry
         ParseJSON -- Success --> ExtractContent[Extract Content]
-        
+
         ExtractContent --> HallucinationCheck{Hallucination Check?}
-        
+
         HallucinationCheck -- "Length > 5x Source" --> LogHallu[Log Warning: Hallucination] --> IncRetry
         HallucinationCheck -- OK --> SuccessBreak[Break Loop]
     end
@@ -354,8 +368,8 @@ graph TD
 
 ## Built With 🛠
 
-- **AngleScript** – The scripting language used to develop the plugin  
-- **ChatGPT API** – Provides context-aware translation capabilities  
+- **AngleScript** – The scripting language used to develop the plugin
+- **ChatGPT API** – Provides context-aware translation capabilities
 - **PotPlayer API** – Enables seamless integration with PotPlayer
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -366,9 +380,9 @@ graph TD
 
 When playing a video with subtitles in PotPlayer, the plugin automatically calls the ChatGPT API to translate the subtitles in real time. By handling context, idioms, and cultural nuances, the plugin provides more accurate translations.
 
-For example:  
-- **Input:** *"You're gonna old yeller my f**king universe."*  
-  - **Traditional Translation Tools** might output a literal or awkward translation.  
+For example:
+- **Input:** *"You're gonna old yeller my f**king universe."*
+  - **Traditional Translation Tools** might output a literal or awkward translation.
   - **ChatGPT Translation** captures the movie reference and context to deliver a more appropriate translation.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -377,8 +391,8 @@ For example:
 
 ## Roadmap 🗺
 
-- [x] Integrate ChatGPT API with PotPlayer API for real-time subtitle translation.  
-- [ ] Support additional AI models (planned for the future, not imminent).  
+- [x] Integrate ChatGPT API with PotPlayer API for real-time subtitle translation.
+- [ ] Support additional AI models (planned for the future, not imminent).
 - [ ] Optimize context handling to further improve translation accuracy.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -387,7 +401,7 @@ For example:
 
 ## Contributing 🤝
 
-Contributions are welcome! When submitting a pull request, please clearly describe the purpose of your changes.  
+Contributions are welcome! When submitting a pull request, please clearly describe the purpose of your changes.
 If you have suggestions for improvements or bug fixes, feel free to open an issue before making modifications.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -412,8 +426,8 @@ Personal website: [obanarchy.org](https://obanarchy.org)
 
 ## Acknowledgments 🙏
 
-- Thanks to OpenAI for providing the powerful ChatGPT API.  
-- Thanks to the PotPlayer team for creating an excellent media player.  
+- Thanks to OpenAI for providing the powerful ChatGPT API.
+- Thanks to the PotPlayer team for creating an excellent media player.
 - Thanks to everyone who has contributed suggestions or code to improve this project (contributor details will be updated here).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

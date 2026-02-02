@@ -6,8 +6,8 @@
 [![License][license-shield]]([license-url])
 
 <div align="right">
-  <a href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/readme_zh.md">简体中文</a> | 
-  <strong href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/readme_zh-tw.md">繁体中文</strong> | 
+  <a href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/readme_zh.md">简体中文</a> |
+  <strong href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/docs/readme_zh-tw.md">繁体中文</strong> |
   <a href="https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/README.md">English</a>
 </div>
 
@@ -65,7 +65,7 @@
    - 若出現提示，請授權系統管理員權限。
 3. **確認插件目錄：**
    - 安裝程式會自動偵測 PotPlayer 安裝路徑。
-   - 確認目標目錄為：  
+   - 確認目標目錄為：
      `...\PotPlayer\Extension\Subtitle\Translate`
    - 若你使用自訂安裝路徑，請手動選擇正確的 `Translate` 目錄。
 4. **選擇插件版本：**
@@ -117,12 +117,12 @@
 ### 配置參考 ⚙️
 
 1. **模型名稱：**
-   你可僅輸入模型名稱，系統會使用預設 API 介面 URL。  
+   你可僅輸入模型名稱，系統會使用預設 API 介面 URL。
    **範例：**
    ```
    gpt-4.1-nano
    ```
-   
+
    或者，也可指定自訂 API 介面 URL，格式如下：
    ```
    模型名稱|API 位址
@@ -131,7 +131,7 @@
    ```
    gpt-4.1-nano|https://api.openai.com/v1/chat/completions
    ```
-   
+
    > **備註：**
    > 在新版插件（v1.5）中，如需支援第三方 API 且不使用 API Key，可於第二個參數填入 `nullkey`。例如：
    > ```
@@ -151,15 +151,17 @@
    >   - `retry2`：持續重試直到有回應（無延遲）
    >   - `retry3`：持續重試且每次都等待延遲
    > - `cache=auto` / `cache=off`：語境快取模式（僅語境版本適用；auto 不支援時會自動回退到 chat）
+   > - `smallmodel=0` / `smallmodel=1`：啟用小模型模式（針對小模型最佳化的提示詞）
+   > - `checkhallucination=0` / `checkhallucination=1`：啟用幻覺檢測（若翻譯長度 > 原文5倍則重試）
    >
    > 完整範例：
    > ```
-   > gpt-4.1-nano|https://api.openai.com/v1/chat/completions|nullkey|500|retry1|cache=auto
+   > gpt-4.1-nano|https://api.openai.com/v1/chat/completions|nullkey|500|retry1|cache=auto|smallmodel=1|checkhallucination=1
    > ```
 
 2. **API Key：**
-   輸入你的 API Key。  
-   若介面不需要 Key，可留空並透過安裝器驗證空 Key；驗證通過後會寫入 `nullkey`。  
+   輸入你的 API Key。
+   若介面不需要 Key，可留空並透過安裝器驗證空 Key；驗證通過後會寫入 `nullkey`。
    > 你可利用 **[keytest.obanarchy.org](https://keytest.obanarchy.org/)** 測試 API Key 是否有效。
 
 3. **設定原語言與目標語言：**
@@ -171,12 +173,18 @@
 
 格式如下：
 ```
-模型名稱|API 位址|nullkey（可選）|delay_ms（可選）|retryN（可選）|cache=auto/off（可選）
+模型名稱|API 位址|nullkey（可選）|delay_ms（可選）|retryN（可選）|cache=auto/off（可選）|smallmodel=0/1（可選）|checkhallucination=0/1（可選）
 ```
 
 以下為已支援或可用的模型介面範例：
 
 ```
+OpenAI GPT-5: gpt-5|https://api.openai.com/v1/chat/completions
+OpenAI GPT-5 Mini: gpt-5-mini|https://api.openai.com/v1/chat/completions
+OpenAI GPT-5 Nano: gpt-5-nano|https://api.openai.com/v1/chat/completions
+OpenAI GPT-4.1: gpt-4.1|https://api.openai.com/v1/chat/completions
+OpenAI GPT-4.1 Mini: gpt-4.1-mini|https://api.openai.com/v1/chat/completions
+Gemini Flash: gemini-3-flash-preview|https://generativelanguage.googleapis.com/v1beta/openai/chat/completions
 Deepseek: deepseek-chat|https://api.deepseek.com/v1/chat/completions
 通義千問: qwen-plus|https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions
 矽基流動: siliconflow-chat|https://api.siliconflow.cn/v1/chat/completions
@@ -277,7 +285,7 @@ graph TD
 
     %% --- Context Management ---
     UpdateHist --> ContextMode{插件版本?}
-    
+
     subgraph ContextLogic [上下文處理]
         direction TB
         ContextMode -- "無上下文版" --> NoContextPrompt[無上下文]
@@ -291,10 +299,10 @@ graph TD
         direction TB
         BuildBlock --> SmallModel{啟用小模型模式?}
         NoContextPrompt --> SmallModel
-        
+
         SmallModel -- 是 --> StrictPrompt[System: 身份 + 上下文 + 指令\nUser: 僅字幕原文]
         SmallModel -- 否 --> StdPrompt[System: 身份 + 上下文\nUser: 指令 + 字幕原文]
-        
+
         StrictPrompt --> EscapeJSON[JSON 字串轉義]
         StdPrompt --> EscapeJSON
         EscapeJSON --> BuildPayload[構建 JSON 請求體]
@@ -307,7 +315,7 @@ graph TD
         direction TB
         LoopCond{嘗試次數 <= 最大值?}
         LoopCond -- 否 --> FailFinal([返回失敗訊息])
-        
+
         LoopCond -- 是 --> DelayCheck{是重試嗎?}
         DelayCheck -- 是 --> Wait["休眠 (DelayMs)"]
         DelayCheck -- 否 --> CacheBranch
@@ -317,24 +325,24 @@ graph TD
         CacheBranch{啟用快取模式?}
         CacheBranch -- 是 --> ReqCache[請求 /responses 端點]
         CacheBranch -- 否 --> ReqChat
-        
+
         ReqCache --> RespCache{響應成功?}
         RespCache -- 是 --> ParseCache[提取 'output_text']
         RespCache -- 否 --> LogCacheFail[記錄失敗] --> ReqChat[請求 /chat/completions]
-        
+
         ParseCache --> HallucinationCheck
-        
+
         %% Standard Chat Branch
         ReqChat --> NetCheck{網絡連線正常?}
         NetCheck -- 否 --> IncRetry[嘗試次數++] --> LoopCond
         NetCheck -- 是 --> ParseJSON{JSON 有效?}
-        
+
         ParseJSON -- 否 --> IncRetry
         ParseJSON -- Error --> LogAPIError[記錄 API 錯誤] --> IncRetry
         ParseJSON -- Success --> ExtractContent[提取內容]
-        
+
         ExtractContent --> HallucinationCheck{幻覺檢測?}
-        
+
         HallucinationCheck -- "長度 > 原文5倍" --> LogHallu[警告: 檢測到幻覺] --> IncRetry
         HallucinationCheck -- 正常 --> SuccessBreak[跳出循環]
     end
@@ -410,7 +418,7 @@ graph TD
 
 ---
 
-## 致謝 🙏
+## 致谢 🙏
 
 * 感謝 OpenAI 提供強大的 ChatGPT API。
 * 感謝 PotPlayer 團隊打造出色的多媒體播放器。
@@ -422,7 +430,7 @@ graph TD
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Felix3322/PotPlayer_ChatGPT_Translate\&type=Date)](https://www.star-history.com/#Felix3322/PotPlayer_ChatGPT_Translate&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Felix3322/PotPlayer_ChatGPT_Translate&type=Date)](https://www.star-history.com/#Felix3322/PotPlayer_ChatGPT_Translate&Date)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
@@ -434,7 +442,3 @@ graph TD
 [issues-url]: https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/issues
 [license-shield]: https://img.shields.io/github/license/Felix3322/PotPlayer_ChatGPT_Translate.svg?style=for-the-badge
 [license-url]: https://github.com/Felix3322/PotPlayer_ChatGPT_Translate/blob/master/LICENSE
-
----
-
-如有特定地區用語需求、繁體中文標點或風格微調，請補充說明。我可以直接生成 `.md` 檔案或者 diff，按你的 workflow 來。
